@@ -52,18 +52,31 @@ public class Car : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    ctrl = new List<Vector3>();
-    ctrl.Add(new Vector3(0,0,0));
-    ctrl.Add(new Vector3(20f,0,0));
-    ctrl.Add(new Vector3(40f,0,0));
-    ctrl.Add(new Vector3(60f,0,0));
-    ctrl.Add(new Vector3(80f,0,0));
-    ctrl.Add(new Vector3(103f,0,-25f));
-        ctrl.Add(new Vector3(0,0,0));
+  
+   ctrl = new List<Vector3>() {
+        new Vector3(-80,0,90),
+        new Vector3(85,0,90),
+        new Vector3(105,0,60)
+        // new Vector3(85,0,34),
+        // new Vector3(-10,0,34),
+        // new Vector3(-27,0,7),
+        // new Vector3(-10,0,-20),
+        // new Vector3(85,0,-20),
+        // new Vector3(105,0,-50),
+        // new Vector3(85,0,-75),
+        // new Vector3(55,0,-75),
+        // new Vector3(12,0,-104),
+        // new Vector3(-30,0,-75),
+        // new Vector3(-80,0,-75),
+        // new Vector3(-100,0,-50),
+        // new Vector3(-100,0,60),
+        //  new Vector3(-80,0,90),
+    };
 
     // ctrl.Add(new Vector3(20,0,0));
     // ctrl.Add(new Vector3(25,0,0));
     n = ctrl.Count;
+    Debug.Log(n);
         param = 0;
         originalCoordinates = car.GetComponent<MeshFilter>().mesh.vertices;
         
@@ -74,12 +87,12 @@ public class Car : MonoBehaviour
     {   //Para controlar velocidad aumentar o reducir param
         // (Pos - prev)/ parm = velocicdad
         // Formula colision 36:11
-        param += 0.001f;
+        param += 0.0001f;
         //pos = Interpolate(start, end, param); //EvalBezier
         pos = EvalBezier(param);
         Matrix4x4 t = Transformations.TranslateM(pos.x, pos.y+1.15f,pos.z);
         //Vector3 prev = Interpolate(start, end, param - 0.0001f);
-        Vector3 prev = EvalBezier(param - 0.001f);
+        Vector3 prev = EvalBezier(param - 0.0001f);
         
         Vector3 du = (pos - prev).normalized;
         float alpha = Mathf.Atan2(-du.z, du.x) * Mathf.Rad2Deg;
